@@ -1,0 +1,81 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* View Employee CSS*/
+
+.tableSelect {
+  margin: 10px;
+}
+.tableInput{
+  margin: 10px;
+}
+table {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 30px;
+}
+th {
+  padding: 10px;
+  border-bottom: solid 1px black;
+}
+tbody tr :hover {
+  background-color: rgb(211, 208, 208);
+}
+td {
+  padding: 10px;
+}
+
+.viewEmployee {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.filters {
+  width: 1000px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.filters div {
+  display: flex;
+  align-items: center;
+}
+
+.filters input {
+  height: 25px;
+}
+.tableButton {
+  padding: 8px 16px;
+  margin: 0 5px;
+  background: none;
+  border: none;
+  border-radius: 3px;
+}
+.tableButton:active{
+  border: solid gray 1px;
+  background-color: rgb(153, 152, 152);
+}
+.tableButton:hover{
+  background-color: rgb(59, 59, 59);
+  color: white;
+}
+.tableFoot{
+  display: flex;
+  width: 937px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}

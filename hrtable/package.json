@@ -1,41 +1,18 @@
 {
-  "name": "daunas-hrtable",
-  "version": "0.1.0",
-  "dependencies": {
+    "name": "daunas-p14-table",
+    "description": "Table component done for a project, you shouldn't be using that",
+    "author": "Romain DAUNAS",
+    "version": "0.1.0",
+    "private": false,
+    "main": "dist/index.js",
+    "module": "dist/index.js",
+    "files": [ "dist", "README.md" ],
+    "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GosuGladesh/P14_Table.git"
   
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "rm -rf dist && NODE_ENV=production babel src/lib --out-dir dist --copy-files --ignore __tests__,spec.js,test.js,__snapshots__",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "main": "dist/index.js",
-  "module": "dist/index.js",
-  "files": [ "dist", "README.md" ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/GosuGladesh/P14_Table"
-  },
-  "publishConfig": {
-   "GosuGladesh:registry": "https://npm.pkg.github.com"
- }
+    "build": "rm -rf dist && NODE_ENV=production babel src/lib --out-dir dist --copy-files"
+  }
 }

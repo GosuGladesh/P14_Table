@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import data from "./data.json";
-import Tableau from './lib/Tableau';
+import Tableau from './lib/components/Tableau';
 
 
 ReactDOM.render(

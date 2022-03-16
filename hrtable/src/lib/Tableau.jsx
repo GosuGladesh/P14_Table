@@ -3,6 +3,7 @@ import "./tableau.css"
 
 //SEARCH SORT AND ROW DISPLAY TIED TO DATA SPECIFICS
 //PASS LIST OF ATTRIBUTE AS STRING IN PROPS THEN USE THEM AS employee[string]
+//TODO SEARCH 
 
 function Tableau(props) {
 
@@ -51,27 +52,21 @@ function Tableau(props) {
   function pageSet(page) {
     setCurrentPage(page);
   }
-  //Searching based on input text  TODO: ADD CASE INSENSITIVENESS
+
   function search(input) {
     if (input === "") {
       setLocalEmployee(props.employees);
       return;
     }
     let result = localEmployee.filter((employee) => {
-      if (
-        employee["firstName"].includes(input) ||
-        employee["lastName"].includes(input) ||
-        employee["dateOfBirth"].includes(input) ||
-        employee["department"].includes(input) ||
-        employee["startDate"].includes(input) ||
-        employee["street"].includes(input) ||
-        employee["city"].includes(input) ||
-        employee["state"].includes(input) ||
-        employee["zipCode"].includes(input)
-      ) {
-        return true;
+      let match = false;
+      for (let i = 0; i < props.headers.length; i++) {
+        //employee[props.headers[i]] ---> employee["firstname"]
+        if (employee[props.headers[i]].toLowerCase().includes(input.toLowerCase())) {  
+          match = true;
+        }
       }
-      return false;
+      return match;
     });
     setLocalEmployee([...result]);
   }
@@ -128,8 +123,7 @@ function Tableau(props) {
             .slice((currentPage - 1) * pageSize, currentPage * pageSize)
             .map((employee) => {
               let row = [];
-              for (let i = 0; i <= props.headers.length; i++) {
-                console.log(employee)
+              for (let i = 0; i < props.headers.length; i++) {
                 row.push(<td>{employee[props.headers[i]]}</td>);
               }
               return (

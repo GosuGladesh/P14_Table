@@ -1,9 +1,6 @@
 import { useState, useEffect } from "react";
 import "./tableau.css"
 
-//SEARCH SORT AND ROW DISPLAY TIED TO DATA SPECIFICS
-//PASS LIST OF ATTRIBUTE AS STRING IN PROPS THEN USE THEM AS employee[string]
-//TODO SEARCH 
 
 function Tableau(props) {
 
@@ -12,9 +9,11 @@ function Tableau(props) {
   const [pageSize, setPageSize] = useState(10);
   const [pageButton, setPageButton] = useState([]);
   const [currentSort, setCurrentSort] = useState();
+  const [headers, setHeaders] = useState([]);
 
   useEffect(() => {
-    setLocalEmployee(props.employees);
+    setLocalEmployee([...props.employees]); //copy data to manipulate
+    setHeaders([...Object.keys(props.employees[0])]) // extract fields name from data
   }, []);
 
   //sorting by clicking on a column head 
@@ -60,9 +59,9 @@ function Tableau(props) {
     }
     let result = localEmployee.filter((employee) => {
       let match = false;
-      for (let i = 0; i < props.headers.length; i++) {
-        //employee[props.headers[i]] ---> employee["firstname"]
-        if (employee[props.headers[i]].toLowerCase().includes(input.toLowerCase())) {  
+      for (let i = 0; i < headers.length; i++) {
+        //employee[headers[i]] ---> employee["firstname"]
+        if (employee[headers[i]].toLowerCase().includes(input.toLowerCase())) {  
           match = true;
         }
       }
@@ -115,7 +114,7 @@ function Tableau(props) {
       <table>
         <thead>
           <tr>
-            {props.headers.map( (head => <th onClick={() => sorting(head)}>{head}</th>))}
+            {headers.map( (head => <th onClick={() => sorting(head)}>{head}</th>))}
           </tr>
         </thead>
         <tbody>
@@ -123,8 +122,8 @@ function Tableau(props) {
             .slice((currentPage - 1) * pageSize, currentPage * pageSize)
             .map((employee) => {
               let row = [];
-              for (let i = 0; i < props.headers.length; i++) {
-                row.push(<td>{employee[props.headers[i]]}</td>);
+              for (let i = 0; i < headers.length; i++) {
+                row.push(<td>{employee[headers[i]]}</td>);
               }
               return (
                 <tr>

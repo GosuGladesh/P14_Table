@@ -1,2 +1,2 @@
 Props powered table
-pass data and an array with the fields names 
+pass data and an array of object 

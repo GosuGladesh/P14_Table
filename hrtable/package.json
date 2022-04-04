@@ -2,7 +2,7 @@
   "name": "daunas-p14-table",
   "description": "Table component done for a project, you shouldn't be using that",
   "author": "Romain DAUNAS",
-  "version": "0.1.0",
+  "version": "0.1.5",
   "private": false,
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -16,7 +16,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "rm -rf dist && NODE_ENV=production babel src/lib --out-dir dist --copy-files"
+    "build": "babel src/lib --out-dir dist --copy-files"
   },
   "browserslist": {
     "production": [
@@ -29,5 +29,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.17.6",
+    "@babel/core": "^7.17.8",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-react": "^7.16.7"
   }
 }

@@ -4,7 +4,7 @@ import "./tableau.css"
 
 function Tableau(props) {
 
-  const [localEmployee, setLocalEmployee] = useState([]);
+  const [localData, setLocalData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [pageButton, setPageButton] = useState([]);
@@ -12,30 +12,30 @@ function Tableau(props) {
   const [headers, setHeaders] = useState([]);
 
   useEffect(() => {
-    setLocalEmployee([...props.employees]); //copy data to manipulate
-    setHeaders([...Object.keys(props.employees[0])]) // extract fields name from data
+    setLocalData([...props.data]); //copy data to manipulate
+    setHeaders([...Object.keys(props.data[0])]) // extract fields name from data
   }, []);
 
   //sorting by clicking on a column head 
   function sorting(property) {
 
-     let sortEmployee = [...localEmployee];
+     let sortData = [...localData];
     if (property === currentSort) {
-      sortEmployee.reverse();
+      sortData.reverse();
     }
     else {
-      sortEmployee.sort((a, b) =>
+      sortData.sort((a, b) =>
         a[property] < b[property] ? -1 : a[property] > b[property] ? 1 : 0
       ); 
     }
     setCurrentSort(property);
-    setLocalEmployee([...sortEmployee]);
+    setLocalData([...sortData]);
   }
 
 
   //Changing to next page
   function pageNext() {
-    if (currentPage === Math.ceil(localEmployee.length / pageSize)) {
+    if (currentPage === Math.ceil(localData.length / pageSize)) {
       return;
     }
     setCurrentPage(currentPage + 1);
@@ -54,43 +54,45 @@ function Tableau(props) {
 
   function search(input) {
     if (input === "") {
-      setLocalEmployee(props.employees);
+      setLocalData(props.data);
       return;
     }
-    let result = localEmployee.filter((employee) => {
+    let result = localData.filter((item) => {
       let match = false;
       for (let i = 0; i < headers.length; i++) {
-        //employee[headers[i]] ---> employee["firstname"]
-        if (employee[headers[i]].toLowerCase().includes(input.toLowerCase())) {  
+        //item[headers[i]] ---> item["firstname"]
+        if (item[headers[i]].toLowerCase().includes(input.toLowerCase())) {  
           match = true;
         }
       }
       return match;
     });
-    setLocalEmployee([...result]);
+    setLocalData([...result]);
+    setCurrentPage(1)
   }
  
   //Generating table pages buttons
   useEffect(() => {
     let buttons = [];
-    for (let i = 1; i < Math.ceil(localEmployee.length / pageSize) + 1; i++) {
+    for (let i = 1; i < Math.ceil(localData.length / pageSize) + 1; i++) {
       buttons.push(
-        <button class='tableButton' onClick={() => pageSet(i)}>
+        <button className='tableButton' onClick={() => pageSet(i)}>
           {i}
         </button>
       );
     }
     setPageButton([...buttons])
-  },[pageSize,localEmployee])
+  },[pageSize,localData])
 
 
   return (
     <>
-      <div class='filters'>
+      <div className='filters'>
         <div>
-          <p>Show</p>
+          <label for="selectLineNumber">Show</label>
           <select
-            class='tableSelect'
+            className='tableSelect'
+            id="selectLineNumber"
             onChange={(e) => {
               setPageSize(e.target.value);
               pageSet(1);
@@ -103,10 +105,11 @@ function Tableau(props) {
           <p>entries</p>
         </div>
         <div>
-          <p>Search:</p>
+          <label for="searchField">Search:</label>
           <input
-            class='tableInput'
+            className='tableInput'
             type='text'
+            id="searchField"
             onChange={(e) => search(e.target.value)}></input>
         </div>
       </div>
@@ -114,16 +117,16 @@ function Tableau(props) {
       <table>
         <thead>
           <tr>
-            {headers.map( (head => <th onClick={() => sorting(head)}>{head}</th>))}
+            {headers.map((head => <th key={head}onClick={() => sorting(head)}>{head}</th>))}
           </tr>
         </thead>
         <tbody>
-          {localEmployee
+          {localData
             .slice((currentPage - 1) * pageSize, currentPage * pageSize)
-            .map((employee) => {
+            .map((item) => {
               let row = [];
               for (let i = 0; i < headers.length; i++) {
-                row.push(<td>{employee[headers[i]]}</td>);
+                row.push(<td key={item[headers[i]]}>{item[headers[i]]}</td>);
               }
               return (
                 <tr>
@@ -133,17 +136,17 @@ function Tableau(props) {
             })}
         </tbody>
       </table>
-      <div class='tableFoot'>
+      <div className='tableFoot'>
         <p>
           Showing {currentPage * pageSize - (pageSize - 1)} to{" "}
-          {currentPage * pageSize} of {localEmployee.length} entries
+          {currentPage * pageSize} of {localData.length} entries
         </p>
-        <div class='tableNav'>
-          <button class='tableButton' onClick={pagePrevious}>
+        <div className='tableNav'>
+          <button className='tableButton' onClick={pagePrevious}>
             Previous
           </button>
           {pageButton}
-          <button class='tableButton' onClick={pageNext}>
+          <button className='tableButton' onClick={pageNext}>
             Next
           </button>
         </div>
